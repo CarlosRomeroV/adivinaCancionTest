@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>titulo</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1> ★ TITULO ★ </h1>
+
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <div><p id="numeroAdivinanza">?????</p>
+    <img class="canciones" src="https://thumbs.dreamstime.com/z/d-personaje-de-dibujos-animados-signo-interrogaci%C3%B3n-115495887.jpg" id="foto"/>
+    
+    <div id="contenido">
+    <label for="n1" id="t1">Y a los de </label>
+    <input type="text" id="n1" name="n1">
+    <label for="n2" id="t2">de nada por el </label>
+    <input type="text" id="n2" name="n2">
+    </t1>
+    </div>
+    <br><br>
+
+    <button onclick="recibirTexto()" style="size: 200px;" id="botonAdivinar" class="botonAdivina">Adivinar</button>
+    
+    <p> <button onclick="pista1()" id="pista1">PORTADA</button> 
+         <button onclick="pista2()">ARTISTA</button> 
+          <button onclick="pista3()">Pista</button> </p>
+    <br>
+    <p id="mensajeError" class="error">mal XD</p>
+
+    <p id="contadorErrores" class="abajo">Número de fallos: 0</p>
+
+    </div>
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    
+    <script>
+
+        let numeroCancion=0;
+
+    function cambiarColor() {
+            const botonVerde=document.getElementById("botonAdivinar")
+            botonVerde.style.backgroundColor = "green";
+      
+        setTimeout(() => {
+                botonVerde.style.backgroundColor = ""; 
+            }, 700); 
+        }
+
+        function pista1() { 
+            //hay q hacer un array de links y segun el id de la foto poner x link
+            const links = ["data:image/jpeg;base64,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",
+                ""
+            ]
+            const foto = document.getElementById("foto");
+
+            if (numeroCancion==0){
+                foto.src = links[0];
+            } else if (numeroCancion==1){
+                foto.src = links[0];
+            } else if (numeroCancion==2){
+                foto.src = links[0];
+            } else if (numeroCancion==3){
+                foto.src = links[0];
+            } else if (numeroCancion==4){
+                foto.src = links[0];
+            } else if (numeroCancion==5){
+                foto.src = links[0];
+            } else if (numeroCancion==6){
+                foto.src = links[0];
+            } else if (numeroCancion==7){
+                foto.src = links[0];
+            } else if (numeroCancion==8){
+                foto.src = links[0];
+            } else if (numeroCancion==9){
+                foto.src = links[0];
+            } else if (numeroCancion==10){
+                foto.src = links[0];
+            }
+
+    
+            document.getElementById("pista1").remove(); 
+            
+        
+        }
+
+        function pista2() { 
+            //hay q hacer un array de artistas y segun el id de la foto poner x link
+            const artistas = ["El Bugg", "roju"]
+            const artista = document.getElementById("numeroAdivinanza");
+
+            if (numeroCancion==0){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==1){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==2){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==3){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==4){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==5){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==6){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==7){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==8){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==9){
+                artista.textContent = artistas[0];
+            } else if (numeroCancion==10){
+                artista.textContent = artistas[0];
+            }
+
+    
+            document.getElementById("pista2").remove(); 
+            
+        
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        function recibirTexto() {
+            // Obtener el valor del input con el id 'nombre'
+            const n1 = document.getElementById("n1").value;
+            const n2 = document.getElementById("n2").value;
+           
+           if (((n1=="Riverland")||(n1=="riverland"))&&(n2=="swag")){
+            document.getElementById("foto").src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVCwUhuGrVtPkt7pP-ns3oex5cW0Sh7RVyQ&s";
+            document.getElementById("numeroAdivinanza").textContent = "Número 2";
+            cambiarColor();
+            numeroCancion+=1;
+            
+            const contenidoDiv = document.getElementById("contenido");
+
+            // Cambiar el contenido HTML
+            contenidoDiv.innerHTML = `
+                <label for="n1" id="t1"> segundo texto </label>
+                <input type="text" id="n1" name="n1">
+                <label for="n2">Texto extra: </label>
+                <input type="text" id="n2" name="n2"> 
+            `;
+
+           } else {
+            mensajeError.style.display = "block";
+
+            let errores = localStorage.getItem("errores") || 0; // Obtener el contador del localStorage
+            errores = parseInt(errores) + 1; // Incrementar el contador
+            localStorage.setItem("errores", errores); 
+
+            document.getElementById("contadorErrores").innerText = "Número de fallos: " + errores;
+           }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    </script>
+
+</body>
+</html>
