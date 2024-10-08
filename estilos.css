@@ -39,3 +39,18 @@ div{
     
     opacity: 1; 
 }
+
+body{
+    /*background: linear-gradient(to top right, #ffffff, white);*/
+    height: 100vh; /* Altura del fondo */
+
+}
+
+input{
+    border-radius: 10px;
+    text-align: center; 
+}
+
+button{
+    cursor: pointer;
+}
